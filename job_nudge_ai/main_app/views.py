@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import HttpResponse as httpresponse
+from dashboard.views import dashboard
 
 
 def home(request):
@@ -31,9 +32,9 @@ def signup(request):
         user = User.objects.create_user(username=username, email=email, password=password1)
         user.save()
         messages.success(request, "Your account has been created! Please sign in.")
-        return redirect('signin')
+        return redirect('ignin_signup')
 
-    return httpresponse("Signup done")
+    return redirect('ignin_signup')
 
 def signin(request):
     if request.method == "POST":
@@ -51,13 +52,13 @@ def signin(request):
         return redirect('signin')
 
     # return render(request, 'auth.html')
-    return httpresponse("Signin done")
+    return redirect('dashboard')
 
 
 def signout(request):
     logout(request)
-    return redirect('signin')
+    return redirect('home')
 
 
-def dashboard(request):
-    return httpresponse("Dashboard done")
+# def dashboard(request):
+#     return httpresponse("Dashboard done")
